@@ -3,6 +3,16 @@
 using namespace std;
 
 
+struct buku{
+    int id;
+    string judul;
+    string penulis;
+    int tahun;
+    bool tersedia;
+    buku *next;
+};
+buku *headBook = nullptr;
+
 void manajemenBuku();
 void menuUtama(){
     int pilihan;
@@ -62,24 +72,19 @@ void manajemenBuku(){
         switch(pilihan){
 
             case 1:
-
                 break;
 
             case 2:
-
                 break;
 
             case 3:
-
                 break;
 
             case 4:
-
                 cout<<"Kembali ke menu Utama"<<endl;
                 break;
 
             default:
-
                 cout<<"Pilihan tidak valid";
 
         }
