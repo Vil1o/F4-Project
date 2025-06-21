@@ -12,6 +12,14 @@ struct buku{
 };
 buku *headBook = nullptr;
 
+struct anggota{
+    int id;
+    string nama;
+    string alamat;
+    anggota *next;
+};
+anggota *headAnggota = nullptr;
+
 void tambahBuku(){
     buku *BukuBaru = new buku();
     cout<<"+========================================+"<<endl;
@@ -34,6 +42,10 @@ void tambahBuku(){
         temp->next = BukuBaru;
     }
     cout<<"Buku baru berhasil ditambahkan"<<endl;
+    
+    cout << "Tekan Enter untuk kembali...";
+    cin.ignore();
+    cin.get();
 }
 
 void tampilBuku(){
@@ -179,7 +191,6 @@ void menuUtama(){
         }
     }while(pilihan != 6);
 }
-
 
 
 int main(){
