@@ -20,6 +20,15 @@ struct anggota{
 };
 anggota *headAnggota = nullptr;
 
+struct peminjaman{
+    int idAnggota;
+    int idBuku;
+    string tanggalPeminjaman;
+    string tanggalKembali;
+    peminjaman *next;
+};
+peminjaman *headPeminjaman = nullptr;
+
 void tambahBuku(){
     buku *BukuBaru = new buku();
     cout<<"+========================================+"<<endl;
