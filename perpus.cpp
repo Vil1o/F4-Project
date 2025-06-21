@@ -146,12 +146,104 @@ void manajemenBuku(){
                 hapusBuku();
                 break;
             case 4:
-                cout<<"Kembali ke menu Utama"<<endl;break;
+                cout<<"Kembali ke menu Utama"<<endl;
+                break;
             default:
-                cout<<"Pilihan tidak valid";
+                cout<<"Pilihan tidak valid" << endl;
         }
     }while(pilihan != 4);
 
+}
+
+void tambahAnggota(){
+    anggota *anggotaBaru = new anggota();
+    cout<<"+========================================+"<<endl;
+    cout<<"    TAMBAH ANGGOTA BARU     "<<endl;
+    cout<<"+========================================+"<<endl;
+    cout<<"Masukkan ID anggota: ";cin>>anggotaBaru->id;
+    cout<<"Masukkan nama: ";getline(cin>>ws, anggotaBaru->nama);
+    cout<<"masukkan alamat: ";getline(cin, anggotaBaru->alamat);
+    anggotaBaru->next = nullptr;
+
+    if(headAnggota == nullptr){
+        headAnggota = anggotaBaru;
+    }else{
+        anggota *temp = headAnggota;
+        while(temp->next != nullptr){
+            temp = temp->next;
+        }
+        temp->next = anggotaBaru;
+    }
+    cout<<"ANGGOTA BERHASIL DITAMBAHKAN!" << endl;
+    cout << "Tekan Enter untuk kembali...";
+    cin.get();
+    system ("cls");
+}
+
+void tampilAnggota(){
+    if(headAnggota == nullptr){
+        cout<<"TIDAK ADA ANGGOTA !"<<endl;
+        cout<<"Silahkan tambahkan anggota terlebih dahulu."<<endl;
+        cout<<"Tekan Enter untuk kembali..."<< endl;
+        cin.ignore();
+        cin.get();
+        system("cls");
+        return;
+    }
+    
+    cout<<"+========================================+"<<endl;
+    cout<<"    Daftar Anggota    "<<endl;
+    cout<<"+========================================+"<<endl;
+    anggota *temp = headAnggota;
+    while(temp != nullptr){
+        cout<<"ID: "<<temp->id<<endl;
+        cout<<"Nama: "<<temp->nama<<endl;
+        cout<<"Alamat: "<<temp->alamat<<endl;
+        cout<<"--------------------"<<temp->id<<endl;
+        temp = temp->next;
+    }
+    cout << "Tekan Enter untuk kembali..."<< endl;
+    cin.ignore();
+    cin.get();
+    system("cls");
+}
+
+void hapusAnggota(){
+    int targetID;
+    if(headAnggota == nullptr){
+        cout<<"TIDAK ADA ANGGOTA !"<<endl;
+        cout<<"Silahkan tambahkan anggota terlebih dahulu."<<endl;
+        cout << "Tekan Enter untuk kembali..."<< endl;
+        cin.ignore();
+        cin.get();
+        system("cls");
+        return;
+    }
+    cout<<"+========================================+"<<endl;
+    cout<<"    HAPUS ANGGOTA    "<<endl;
+    cout<<"+========================================+"<<endl;
+    cout<<"Masukkan ID anggota yang ingin dihapus: ";cin>>targetID;
+    anggota *temp = headAnggota;
+    anggota *prev = nullptr;
+    while(temp != nullptr && temp->id != targetID){
+        prev = temp;
+        temp = temp->next;
+    }
+    if(headAnggota == nullptr){
+        cout<<"Anggota yang dimaksud tidak ada!";
+        return;
+    }
+    if(prev == nullptr){
+        headAnggota = temp->next;
+    }else{
+        prev->next = temp->next;
+    }
+    delete temp;
+    cout<<"Anggota telah dihapus."<<endl;
+    cout << "Tekan Enter untuk kembali..."<< endl;
+    cin.ignore();
+    cin.get();
+    system("cls");
 }
 
 void manajemenAnggota(){
@@ -167,16 +259,17 @@ void manajemenAnggota(){
         cout << "4. Kembali ke Menu Utama" << endl;
         cout << "Pilih: ";
         cin >> pilihan;
+        system ("cls");
 
         switch (pilihan) {
             case 1:
-                
+                tambahAnggota();
                 break;
             case 2:
-                
+                tampilAnggota();
                 break;
             case 3:
-                
+                hapusAnggota();
                 break;
             case 4:
                 cout << "Kembali ke menu utama..." << endl;
