@@ -55,6 +55,7 @@ void tambahBuku(){
     cout << "Tekan Enter untuk kembali...";
     cin.ignore();
     cin.get();
+    system ("cls");
 }
 
 void tampilBuku(){
@@ -289,6 +290,97 @@ void manajemenAnggota(){
     } while (pilihan!=4);
 }
 
+void pinjamBuku(){
+    int idAnggota, idBuku;
+    
+    if (headAnggota == nullptr && headBook == nullptr) {
+        cout << "TIDAK ADA ANGGOTA DAN BUKU!" << endl;
+        cout << "Silahkan tambahkan anggota dan buku terlebih dahulu." << endl;
+        cout << "Tekan Enter untuk kembali..."<< endl;
+        cin.ignore();
+        cin.get();
+        system("cls");
+        return;
+    }
+
+    if(headAnggota == nullptr){
+        cout<<"TIDAK ADA ANGGOTA !"<<endl;
+        cout<<"Silahkan tambahkan anggota terlebih dahulu."<<endl;
+        cout << "Tekan Enter untuk kembali..."<< endl;
+        cin.ignore();
+        cin.get();
+        system("cls");
+        return;
+    }
+
+    if(headBook == nullptr){
+        cout<<"TIDAK ADA BUKU !"<<endl;
+        cout<<"Silahkan tambahkan buku terlebih dahulu."<<endl;
+        cout << "Tekan Enter untuk kembali..."<< endl;
+        cin.ignore();
+        cin.get();
+        system("cls");
+        return;
+    }
+
+    cout<<"+========================================+"<<endl;
+    cout<<"    PINJAM BUKU     "<<endl;
+    cout<<"+========================================+"<<endl;
+    cout<<"Masukkan ID anggota: ";cin>>idAnggota;
+    cout<<"Masukkan ID buku yang ingin dipinjam: ";cin>>idBuku;
+
+    anggota *srcAnggota = headAnggota;
+    while(srcAnggota != nullptr && srcAnggota->id != idAnggota){
+        srcAnggota = srcAnggota->next;
+    }
+    if(srcAnggota == nullptr){
+        cout<<"Anggota tidak ditemukan"<<endl;
+        return;
+    }
+
+    buku *srcbuku = headBook;
+    while(srcbuku != nullptr && srcbuku->id != idBuku){
+        srcbuku = srcbuku->next;
+    }
+    if(srcbuku == nullptr){
+        cout<<"Buku tidak ditemukan";
+    }
+
+    if(!srcbuku->tersedia){
+        cout<<"Buku sedang dipinjam."<<endl;
+        return;
+    }
+
+    peminjaman* baru = new peminjaman();
+    baru->idAnggota = idAnggota;
+    baru->idBuku = idBuku;
+
+    cin.ignore();
+    cout << "Masukkan tanggal pinjam (dd/mm/yyyy): ";
+    getline(cin >> ws, baru->tanggalPeminjaman);
+    cout << "Masukkan tanggal kembali (dd/mm/yyyy): ";
+    getline(cin, baru->tanggalKembali);
+
+    baru->next = nullptr;
+
+    if (headPeminjaman == nullptr) {
+        headPeminjaman = baru;
+    } else {
+        peminjaman* temp = headPeminjaman;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        temp->next = baru;
+    }
+
+    srcbuku->tersedia = false;
+
+    cout << "Peminjaman berhasil dicatat!" << endl;
+    cout << "Tekan Enter untuk kembali..."<< endl;
+    cin.get();
+    system("cls");
+}
+
 
 void menuUtama(){
     int pilihan;
@@ -318,6 +410,7 @@ void menuUtama(){
                 system ("cls");
                 break;
             case 3:
+                pinjamBuku();
                 break;
             case 4:
                 break;
