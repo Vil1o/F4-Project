@@ -32,9 +32,20 @@ peminjaman *headPeminjaman = nullptr;
 void tambahBuku(){
     buku *BukuBaru = new buku();
     cout<<"+========================================+"<<endl;
-    cout<<"    TAMBAH BUKU BARU     "<<endl;
+    cout<<"            TAMBAH BUKU BARU     "<<endl;
     cout<<"+========================================+"<<endl;
     cout<<"Masukkan ID buku: ";cin>>BukuBaru->id;
+
+     if(cin.fail()) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Input ID buku harus berupa angka!" << endl;
+        cout << "Tekan Enter untuk kembali..." << endl;
+        cin.get();
+        system("cls");
+        return;
+    }
+
     cout<<"Masukkan Judul Buku: ";getline(cin >> ws, BukuBaru->judul);
     cout<<"Masukkan Penulis: ";getline(cin, BukuBaru->penulis);
     cout<<"Masukkan tahun terbit: ";cin>>BukuBaru->tahun;
@@ -70,7 +81,7 @@ void tampilBuku(){
     }
 
     cout<<"+========================================+"<<endl;
-    cout<<"     DAFTAR BUKU     "<<endl;
+    cout<<"               DAFTAR BUKU     "<<endl;
     cout<<"+========================================+"<<endl;
 
     buku *temp = headBook;
@@ -102,10 +113,20 @@ void hapusBuku(){
     }
 
     cout<<"+========================================+"<<endl;
-    cout<<"    HAPUS BUKU     "<<endl;
+    cout<<"               HAPUS BUKU     "<<endl;
     cout<<"+========================================+"<<endl;
 
     cout<<"Masukkan ID buku yang ingin dihapus: ";cin>>targetID;
+
+     if(cin.fail()) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Input ID buku harus berupa angka!" << endl;
+        cout << "Tekan Enter untuk kembali..." << endl;
+        cin.get();
+        system("cls");
+        return;
+     }
     buku *temp = headBook;
     buku *prev = nullptr;
     while(temp != nullptr && temp->id != targetID){
@@ -115,6 +136,10 @@ void hapusBuku(){
 
     if(temp == nullptr){
         cout<<"Buku dengan ID tersebut tidak ditemukan."<<endl;
+        cout << "Tekan Enter untuk kembali..." << endl;
+        cin.ignore();
+        cin.get();
+        system ("cls");
         return;
     }
 
@@ -127,13 +152,17 @@ void hapusBuku(){
     }
     delete temp;
     cout<<"Buku berhasil dihapus."<<endl;
+    cout << "Tekan Enter untuk kembali..."<< endl;
+    cin.ignore();
+    cin.get();
+    system("cls");         
 }
 
 void manajemenBuku(){
     int pilihan;
     do{
         cout<<"+========================================+"<<endl;
-        cout<<"    MENU MANAJEMEN BUKU     "<<endl;
+        cout<<"           MENU MANAJEMEN BUKU     "<<endl;
         cout<<"+========================================+"<<endl;
         cout<<""<<endl;
 
@@ -168,9 +197,20 @@ void manajemenBuku(){
 void tambahAnggota(){
     anggota *anggotaBaru = new anggota();
     cout<<"+========================================+"<<endl;
-    cout<<"    TAMBAH ANGGOTA BARU     "<<endl;
+    cout<<"           TAMBAH ANGGOTA BARU     "<<endl;
     cout<<"+========================================+"<<endl;
     cout<<"Masukkan ID anggota: ";cin>>anggotaBaru->id;
+
+     if(cin.fail()) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Input ID anggota harus berupa angka!" << endl;
+        cout << "Tekan Enter untuk kembali..." << endl;
+        cin.get();
+        system("cls");
+        return;
+     }
+
     cout<<"Masukkan nama: ";getline(cin>>ws, anggotaBaru->nama);
     cout<<"masukkan alamat: ";getline(cin, anggotaBaru->alamat);
     anggotaBaru->next = nullptr;
@@ -202,7 +242,7 @@ void tampilAnggota(){
     }
     
     cout<<"+========================================+"<<endl;
-    cout<<"    Daftar Anggota    "<<endl;
+    cout<<"             DAFTAR ANGGOTA    "<<endl;
     cout<<"+========================================+"<<endl;
     anggota *temp = headAnggota;
     while(temp != nullptr){
@@ -230,17 +270,30 @@ void hapusAnggota(){
         return;
     }
     cout<<"+========================================+"<<endl;
-    cout<<"    HAPUS ANGGOTA    "<<endl;
+    cout<<"             HAPUS ANGGOTA    "<<endl;
     cout<<"+========================================+"<<endl;
     cout<<"Masukkan ID anggota yang ingin dihapus: ";cin>>targetID;
+     if(cin.fail()) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Input ID anggota harus berupa angka!" << endl;
+        cout << "Tekan Enter untuk kembali..." << endl;
+        cin.get();
+        system("cls");
+        return;
+     }
     anggota *temp = headAnggota;
     anggota *prev = nullptr;
     while(temp != nullptr && temp->id != targetID){
         prev = temp;
         temp = temp->next;
     }
-    if(headAnggota == nullptr){
-        cout<<"Anggota yang dimaksud tidak ada!";
+    if(temp == nullptr){
+        cout<<"Anggota yang dimaksud tidak ada!" << endl;
+        cout << "Tekan Enter untuk kembali..."<< endl;
+        cin.ignore();
+        cin.get();
+        system("cls");
         return;
     }
     if(prev == nullptr){
@@ -260,7 +313,7 @@ void manajemenAnggota(){
     int pilihan;
     do {
         cout << "+========================================+" << endl;
-        cout << "    MENU MANAJEMEN ANGGOTA   " << endl;
+        cout << "          MENU MANAJEMEN ANGGOTA   " << endl;
         cout << "+========================================+" << endl;
         cout << ""<< endl;
         cout << "1. Tambah Anggota" << endl;
@@ -324,10 +377,29 @@ void pinjamBuku(){
     }
 
     cout<<"+========================================+"<<endl;
-    cout<<"    PINJAM BUKU     "<<endl;
+    cout<<"             PINJAM BUKU     "<<endl;
     cout<<"+========================================+"<<endl;
     cout<<"Masukkan ID anggota: ";cin>>idAnggota;
+     if(cin.fail()) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Input ID anggota harus berupa angka!" << endl;
+        cout << "Tekan Enter untuk kembali..." << endl;
+        cin.get();
+        system("cls");
+        return;
+     }
+
     cout<<"Masukkan ID buku yang ingin dipinjam: ";cin>>idBuku;
+      if(cin.fail()) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Input ID buku harus berupa angka!" << endl;
+        cout << "Tekan Enter untuk kembali..." << endl;
+        cin.get();
+        system("cls");
+        return;
+      }
 
     anggota *srcAnggota = headAnggota;
     while(srcAnggota != nullptr && srcAnggota->id != idAnggota){
@@ -335,6 +407,9 @@ void pinjamBuku(){
     }
     if(srcAnggota == nullptr){
         cout<<"Anggota tidak ditemukan"<<endl;
+        cout << "Tekan Enter untuk kembali..." << endl;
+        cin.get();
+        system("cls");
         return;
     }
 
@@ -344,10 +419,19 @@ void pinjamBuku(){
     }
     if(srcbuku == nullptr){
         cout<<"Buku tidak ditemukan";
+        cout << "Tekan Enter untuk kembali..."<< endl;
+        cin.ignore();
+        cin.get();
+        system("cls");
+        return;
     }
 
     if(!srcbuku->tersedia){
         cout<<"Buku sedang dipinjam."<<endl;
+        cout << "Tekan Enter untuk kembali..."<< endl;
+        cin.ignore();
+        cin.get();
+        system("cls");
         return;
     }
 
@@ -393,12 +477,31 @@ void kembalikanBuku() {
     }
 
     cout << "+========================================+" << endl;
-    cout << "    KEMBALIKAN BUKU     " << endl; 
+    cout << "             KEMBALIKAN BUKU     " << endl; 
     cout << "+========================================+" << endl;  
     cout << "Masukkan ID anggota: ";
     cin >> idAnggota;
+       if(cin.fail()) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Input ID anggota harus berupa angka!" << endl;
+        cout << "Tekan Enter untuk kembali..." << endl;
+        cin.get();
+        system("cls");
+        return;
+     }
+
     cout << "Masukkan ID buku yang dikembalikan: ";
     cin >> idBuku;
+        if(cin.fail()) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Input ID buku harus berupa angka!" << endl;
+        cout << "Tekan Enter untuk kembali..." << endl;
+        cin.get();
+        system("cls");
+        return;
+     }
 
     peminjaman* temp = headPeminjaman;
     peminjaman* prev = nullptr;
@@ -411,6 +514,10 @@ void kembalikanBuku() {
 
     if (temp == nullptr) {
         cout << "Data peminjaman tidak ditemukan." << endl;
+        cout << "Tekan Enter untuk kembali..."<< endl;
+        cin.ignore();
+        cin.get();
+        system("cls");
         return;
     }
 
@@ -448,7 +555,7 @@ void riwayatPeminjaman() {
     }
 
     cout << "+========================================+" << endl;
-    cout << "    RIWAYAT PEMINJAMAN     " << endl;
+    cout << "           RIWAYAT PEMINJAMAN     " << endl;
     cout << "+========================================+" << endl;
     peminjaman* temp = headPeminjaman;
     while (temp != nullptr) {
@@ -468,7 +575,7 @@ void menuUtama(){
     int pilihan;
     do{
         cout<<"+========================================+"<<endl;
-        cout<<"    SISTEM PERPUSTAKAAN    "<<endl;
+        cout<<"            SISTEM PERPUSTAKAAN    "<<endl;
         cout<<"+========================================+"<<endl;
         cout<<""<<endl;
 
@@ -498,6 +605,7 @@ void menuUtama(){
                 kembalikanBuku();
                 break;
             case 5:
+                riwayatPeminjaman();
                 break;
             case 6:
                 break;
